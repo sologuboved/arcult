@@ -4,8 +4,12 @@ from helpers import CsvWriter, load_utf_json, read_csv
 
 
 def filter_names():
-    misc = load_utf_json('misc_arm_art_names.json')
-    wiki = load_utf_json('wiki_art_names.json')
+    ref = {name for filename for name in }
+    misc, wiki, typical = (load_utf_json(filename) for filename in (
+        'misc_arm_art_names.json',
+        'wiki_art_names.json',
+        'wiki_arm_typical_names.json',
+    ))
     filtered = list()
     for name, name_id in read_csv('all_names.csv'):
         if name == "Александр Рослин":
