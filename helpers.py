@@ -1,5 +1,6 @@
 import csv
 from functools import wraps
+import json
 import time
 
 
@@ -54,6 +55,16 @@ def read_csv(csv_fname, is_dict=False, delimiter=','):
             next(reader)
             for row in reader:
                 yield row
+
+
+def dump_utf_json(entries, json_file):
+    with open(json_file, 'w', encoding='utf-8') as handler:
+        json.dump(entries, handler, ensure_ascii=False, sort_keys=True, indent=2)
+
+
+def load_utf_json(json_file):
+    with open(json_file, encoding='utf8') as data:
+        return json.load(data)
 
 
 def which_watch(func):
