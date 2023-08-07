@@ -14,7 +14,7 @@ def dowload_arm_artists():
             name = name.text
             if name != "Этьен из Вахки":
                 names.add(process_name(name))
-    dump_utf_json(sorted(list(names)), 'wiki_names.json')
+    dump_utf_json(sorted(list(names)), 'wiki_art_names.json')
 
 
 def process_name(name):
