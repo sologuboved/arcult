@@ -20,6 +20,11 @@ class CsvWriter:
     def __exit__(self, *args):
         self.close()
 
+    def bulk(self, bulk):
+        self._count += len(bulk)
+        for row in bulk:
+            self._writer.send(row)
+
     def write(self, row):
         self._count += 1
         self._writer.send(row)
