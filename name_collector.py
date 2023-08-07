@@ -9,7 +9,8 @@ from helpers import CsvWriter, which_watch
 def collect_names():
     api_url = 'https://ar.culture.ru/api/Person'
     today = datetime.datetime.combine(datetime.date.today(), datetime.datetime.min.time())
-    beg = datetime.datetime.combine(datetime.date(year=2019, month=1, day=1), datetime.datetime.min.time())
+    beg = datetime.datetime.combine(datetime.date(year=2018, month=1, day=1), datetime.datetime.min.time())
+    ids = set()
     while beg <= today:
         fin = (beg + datetime.timedelta(days=32)).replace(day=1)
         print(f"{beg:%Y-%m-%d} - {fin:%Y-%m-%d}")
@@ -25,7 +26,11 @@ def collect_names():
                 },
             )
         for item in response.json()['data']:
-            yield item['title']['ru'], item['id']
+            name_id = item['id']
+            if name_id in ids:
+                continue
+            ids.add(name_id)
+            yield item['title']['ru'], name_id
         beg = fin
 
 
