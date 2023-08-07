@@ -11,15 +11,16 @@ def dowload_arm_artists():
             'lxml',
     ).find_all('div', {'class': 'mw-category-group'})[9:]:
         for name in group.find_all('a', {'href': True}):
+            name = name.text
             if name != "Этьен из Вахки":
-                names.add(process_name(name.text))
+                names.add(process_name(name))
     dump_utf_json(sorted(list(names)), 'wiki_names.json')
 
 
 def process_name(name):
     if ',' in name:
         return name.split(',')[0]
-    return name.split()[0]
+    return name.split()[1]
 
 
 if __name__ == '__main__':
