@@ -4,7 +4,7 @@ import time
 
 
 class CsvWriter:
-    def __init__(self, csv_filename, headers=None, as_dict=True):
+    def __init__(self, csv_filename, headers=None, as_dict=False):
         print(f"Downloading {csv_filename}...")
         self._csv_filename = csv_filename
         self._headers = headers
@@ -42,6 +42,18 @@ class CsvWriter:
                     writer.writerow(self._headers)
             while True:
                 writer.writerow((yield))
+
+
+def read_csv(csv_fname, is_dict=False, delimiter=','):
+    with open(csv_fname, newline=str()) as handler:
+        if is_dict:
+            for row in csv.DictReader(handler, delimiter=delimiter):
+                yield row
+        else:
+            reader = csv.reader(handler, delimiter=delimiter)
+            next(reader)
+            for row in reader:
+                yield row
 
 
 def which_watch(func):
