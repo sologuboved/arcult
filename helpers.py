@@ -60,6 +60,7 @@ def read_csv(csv_fname, is_dict=False, delimiter=','):
 def dump_utf_json(entries, json_file):
     with open(json_file, 'w', encoding='utf-8') as handler:
         json.dump(entries, handler, ensure_ascii=False, sort_keys=True, indent=2)
+    print(f"Dumped {len(entries)} entries")
 
 
 def load_utf_json(json_file):
