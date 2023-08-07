@@ -16,7 +16,7 @@ def filter_names():
                 if namelet.endswith('ян') or namelet.endswith('янц') or namelet in wiki or namelet in misc:
                     filtered.append((name, name_id))
     filtered.sort(key=itemgetter(0))
-    with CsvWriter('arm_names.csv', ('name', 'id')) as csv_writer:
+    with CsvWriter('arm_artist_names.csv', ('name', 'id')) as csv_writer:
         csv_writer.bulk(filtered)
 
 
