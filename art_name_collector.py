@@ -22,7 +22,7 @@ def collect_names():
                         '$gte': f'{beg:%Y-%m-%dT%H:%M:%S.%fZ}',
                         '$lt': f'{fin:%Y-%m-%dT%H:%M:%S.%fZ}',
                     }}),
-                    'sel': "title id",
+                    'sel': "slug title id",
                 },
             )
         for item in response.json()['data']:
@@ -30,13 +30,13 @@ def collect_names():
             if name_id in ids:
                 continue
             ids.add(name_id)
-            yield item['title']['ru'], name_id
+            yield item['title']['ru'], name_id, item['slug']
         beg = fin
 
 
 @which_watch
 def download_names():
-    with CsvWriter('all_art_names.csv', ('name', 'id')) as csv_writer:
+    with CsvWriter('all_art_names.csv', ('name', 'id', 'slug')) as csv_writer:
         for row in collect_names():
             csv_writer.write(row)
 
