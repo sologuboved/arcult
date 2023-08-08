@@ -11,12 +11,12 @@ from helpers import dump_utf_json, read_csv, which_watch
 
 
 class Downloader:
-    def __init__(self, filename=ARCULT_METADATA, write_meta=True, download_image=True):
+    def __init__(self, filename=ARCULT_METADATA, write_meta=True, download_jpg=True):
         self.filename = filename
         self.write_meta = write_meta
-        self.download_image = download_image
+        self.download_jpg = download_jpg
         self.path = None
-        if self.download_image:
+        if self.download_jpg:
             self.path = os.path.join(os.sep, 'opt', 'opendata_am', 'arcult')
             shutil.rmtree(self.path, ignore_errors=True)
             os.mkdir(self.path)
@@ -64,7 +64,7 @@ class Downloader:
             self.num_processed += 1
             if self.write_meta:
                 self.collect_metadata(art_slug, raw_metadata)
-            if self.download_image:
+            if self.download_jpg:
                 self.download_images(art_slug, raw_metadata)
         print(f"Processed {self.num_processed} / {len(rows)}, "
               f"{self.num_empty} are empty; "
