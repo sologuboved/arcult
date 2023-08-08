@@ -12,6 +12,7 @@ def dowload_arm_typical_names():
     ).find('div', {'dir': 'ltr'}).find_all('a', {'href': True})[:-1]:
         name = name.text
         names |= process_name(name)
+    names -= {'Абрамов', 'Бабаев', 'Григорьев', 'Захаров', 'Мурадов', 'Мясников', 'Оников', 'Самсонов', 'Симонов'}
     dump_utf_json(sorted(list(names)), 'wiki_arm_typical_names.json')
 
 
