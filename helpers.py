@@ -68,7 +68,7 @@ def dump_utf_json(entries, json_file):
     with open(json_file, 'w', encoding='utf-8') as handler:
         json.dump(entries, handler, ensure_ascii=False, sort_keys=True, indent=2)
     num_entries = len(entries)
-    print(f"Dumped {num_entries} {inflect.engine().plural('entry', num_entries)}")
+    print(f"Dumped {num_entries} {inflect.engine().plural('entry', num_entries)} to {json_file}")
 
 
 def load_utf_json(json_file):
