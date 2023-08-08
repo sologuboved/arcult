@@ -3,6 +3,8 @@ from functools import wraps
 import json
 import time
 
+import inflect
+
 
 class CsvWriter:
     def __init__(self, csv_filename, headers=None, as_dict=False):
@@ -31,7 +33,7 @@ class CsvWriter:
 
     def close(self):
         self._writer.close()
-        print(f"Total: {self._count} rows")
+        print(f"Total: {self._count} {inflect.engine().plural('row', self._count)}")
 
     def csv_writer(self):
         with open(self._csv_filename, 'w', newline='', encoding='utf-8') as handler:
@@ -65,7 +67,8 @@ def read_csv(csv_fname, is_dict=False, delimiter=','):
 def dump_utf_json(entries, json_file):
     with open(json_file, 'w', encoding='utf-8') as handler:
         json.dump(entries, handler, ensure_ascii=False, sort_keys=True, indent=2)
-    print(f"Dumped {len(entries)} entries")
+    num_entries = len(entries)
+    print(f"Dumped {num_entries} {inflect.engine().plural('entry', num_entries)}")
 
 
 def load_utf_json(json_file):
