@@ -26,11 +26,11 @@ def collect_names():
                 },
             )
         for item in response.json()['data']:
-            name_id = item['id']
-            if name_id in ids:
+            art_id = item['id']
+            if art_id in ids:
                 continue
-            ids.add(name_id)
-            yield item['title']['ru'], name_id, item['slug']
+            ids.add(art_id)
+            yield item['title']['ru'], art_id, item['slug']
         beg = fin
 
 
