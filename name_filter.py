@@ -1,5 +1,6 @@
 from operator import itemgetter
 
+from global_vars import ARM_ART_NAMES
 from helpers import CsvWriter, load_utf_json, read_csv
 
 
@@ -20,7 +21,7 @@ def filter_names():
                 if namelet.endswith('ян') or namelet.endswith('янц') or namelet in ref:
                     filtered.append(row)
     filtered.sort(key=itemgetter(0))
-    with CsvWriter('arm_art_names.csv', ('name', 'id', 'slug')) as csv_writer:
+    with CsvWriter(ARM_ART_NAMES, ('name', 'id', 'slug')) as csv_writer:
         csv_writer.bulk(filtered)
 
 
