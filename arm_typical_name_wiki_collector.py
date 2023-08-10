@@ -17,13 +17,9 @@ def dowload_arm_typical_names():
 
 
 def process_name(name):
-    names = {name}
     if name[-2:] in ('ов', 'ев'):
-        name = name[:-2]
-        names |= {name + 'ян', name + 'янц'}
-        return names
-    if name.endswith('ян'):
-        name = name + 'ц'
+        return {name}
+    names = set()
     if name.endswith('ц'):
         names.add(name + 'ев')
         name = name[:-1]
