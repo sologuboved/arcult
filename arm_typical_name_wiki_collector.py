@@ -4,19 +4,21 @@ import requests
 from helpers import dump_utf_json
 
 
-def dowload_arm_typical_names():
+def dowload_arm_typical_names(lower):
     names = set()
     for name in BeautifulSoup(
             requests.get('https://ru.wiktionary.org/wiki/Категория:Армянские_фамилии/ru').content,
             'lxml',
     ).find('div', {'dir': 'ltr'}).find_all('a', {'href': True})[:-1]:
         name = name.text
-        names |= process_name(name)
+        names |= process_name(name, lower)
     names -= {'Абрамов', 'Бабаев', 'Григорьев', 'Захаров', 'Мурадов', 'Мясников', 'Оников', 'Самсонов', 'Симонов'}
     dump_utf_json(sorted(list(names)), 'wiki_arm_typical_names.json')
 
 
-def process_name(name):
+def process_name(name, lower):
+    if lower:
+        name = name.lower()
     if name[-2:] in ('ов', 'ев'):
         return {name}
     names = set()
@@ -36,4 +38,4 @@ def process_name(name):
 
 
 if __name__ == '__main__':
-    dowload_arm_typical_names()
+    dowload_arm_typical_names(True)
