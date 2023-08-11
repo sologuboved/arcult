@@ -12,7 +12,11 @@ def dowload_arm_typical_names(lower):
     ).find('div', {'dir': 'ltr'}).find_all('a', {'href': True})[:-1]:
         name = name.text
         names |= process_name(name, lower)
-    names -= {'Абрамов', 'Бабаев', 'Григорьев', 'Захаров', 'Мурадов', 'Мясников', 'Оников', 'Самсонов', 'Симонов'}
+    excl = {'Абрамов', 'Бабаев', 'Григорьев', 'Захаров', 'Мурадов', 'Мясников', 'Оников', 'Самсонов', 'Симонов'}
+    if lower:
+        names -= {name.lower() for name in excl}
+    else:
+        names -= excl
     dump_utf_json(sorted(list(names)), 'wiki_arm_typical_names.json')
 
 
